@@ -30,10 +30,14 @@ function Header() {
     }
   };
 
+  
+  
+
   return (
     <header className="bg-black fixed bottom-0 w-full">
       <nav>
         <input checked={darkMode} type="checkbox" onChange={changeTheme} />
+        
       </nav>
     </header>
   );
