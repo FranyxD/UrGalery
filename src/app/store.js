@@ -1,3 +1,2 @@
-import {createStore} from 'redux';
-
+import { getAll } from "../actions/services";
 
