@@ -1,16 +1,15 @@
 {
   "files": {
-    "main.css": "/UrGalery/static/css/main.70a188aa.css",
-    "main.js": "/UrGalery/static/js/main.3cbeed97.js",
+    "main.css": "/UrGalery/static/css/main.8abf5c64.css",
+    "main.js": "/UrGalery/static/js/main.dab4abb7.js",
     "static/js/787.88262bb6.chunk.js": "/UrGalery/static/js/787.88262bb6.chunk.js",
-    "static/media/logo.svg": "/UrGalery/static/media/logo.b2e5a01e505f739f1484b881277d5186.svg",
     "index.html": "/UrGalery/index.html",
-    "main.70a188aa.css.map": "/UrGalery/static/css/main.70a188aa.css.map",
-    "main.3cbeed97.js.map": "/UrGalery/static/js/main.3cbeed97.js.map",
+    "main.8abf5c64.css.map": "/UrGalery/static/css/main.8abf5c64.css.map",
+    "main.dab4abb7.js.map": "/UrGalery/static/js/main.dab4abb7.js.map",
     "787.88262bb6.chunk.js.map": "/UrGalery/static/js/787.88262bb6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.70a188aa.css",
-    "static/js/main.3cbeed97.js"
+    "static/css/main.8abf5c64.css",
+    "static/js/main.dab4abb7.js"
   ]
 }
