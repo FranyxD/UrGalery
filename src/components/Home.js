@@ -29,7 +29,7 @@ function Home() {
   }
 
   return (
-    <main className="my-3">
+    <main className="my-24">
       <nav>
         <input
           className=" bg-white shadow-xl"
