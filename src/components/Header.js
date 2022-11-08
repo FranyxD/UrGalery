@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
-import {getAll} from '../actions/services';
+import { useDispatch, useSelector } from "react-redux";
+import {actionSearch} from '../reducers/searchReducer';
 
 
 function Header() {
+  const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
     if (
@@ -33,12 +35,17 @@ function Header() {
     }
   };
 
-
+  const inputSearch = async (event) =>{
+    event.preventDefault();
+    const {target} = event;
+    const content = target.buscador.value;
+    dispatch(actionSearch(content))
+  }
 
   return (
     <header className="fixed  w-full bg-black max-md:bottom-0 md:top-0">
       <nav className="p-3 flex items-center gap-x-5">
-        <Switch
+          <Switch
           checked={darkMode}
           onChange={changeTheme}
           className={`${darkMode ? "bg-teal-900" : "bg-teal-700"}
@@ -51,8 +58,10 @@ function Header() {
             pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
           />
         </Switch>
-        <input type='text' className="w-full rounded bg-white"/>
-        <button onClick={getAll}>hola</button>
+        <form onSubmit={inputSearch}>
+        <input type='text' name="buscador" className="w-full rounded bg-white"/>
+        <button className='text-white dark:text-black'>Buscar</button>
+        </form>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="text-white  w-auto h-10">
         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 3.75V16.5L12 14.25 7.5 16.5V3.75m9 0H18A2.25 2.25 0 0120.25 6v12A2.25 2.25 0 0118 20.25H6A2.25 2.25 0 013.75 18V6A2.25 2.25 0 016 3.75h1.5m9 0h-9" />
         </svg>
