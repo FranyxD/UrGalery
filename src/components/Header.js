@@ -66,7 +66,7 @@ function Header() {
           />
           <button className="text-white dark:text-black">Buscar</button>
         </form>
-        <NavLink to="/Favorites">
+        <NavLink to="/Favorites" >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

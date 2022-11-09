@@ -25,10 +25,12 @@ function Home() {
     e.preventDefault();
     const { target } = e;
     const content = target.photo.src;
+    const data = target.photo;
+    console.log('data', data)
     setSaveImages(oldImages => {
       return [...oldImages, content];
     });
-    console.log(saveImages)
+    console.log('saveImages estado: ', saveImages)
     localStorage.setItem("img", JSON.stringify(saveImages));
     dispatch(actionAddFavorite(content));
   }
@@ -45,13 +47,16 @@ function Home() {
 
       <section className="w-full gap-0 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
         {galery.map((item, index) => {
+          console.log(item[0])
           return (
             <form onSubmit={savePhoto} key={index} className="relative">
+              
               <button className="bg-gray absolute left-5 top-3 shadow-md">
                 Guardar
               </button>
               <img
                 name="photo"
+                likes={item.likes}
                 className="object-cover p-2"
                 onClick={openModal}
                 src={item.urls.regular}
