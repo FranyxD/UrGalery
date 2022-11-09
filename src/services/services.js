@@ -25,3 +25,5 @@ export const fotosGeneradas = async (valor) => {
     const data = await response.json();
     return data.results;
 }
+
+//https://community.airtable.com/t/save-images-from-unsplash/27510/2

@@ -30,7 +30,7 @@ function Home() {
     e.preventDefault();
     const dateSave = new Date();
     //const fecha = `${dateSave.getDate()}-${dateSave.getMonth()}-${dateSave.getFullYear()}`
-    const fecha = dateSave.getTime();
+    const fecha = dateSave.getMilliseconds();
 
     console.log('fecha de guardado', fecha)
     const { target } = e;
@@ -54,7 +54,7 @@ function Home() {
 
       <section className="w-full gap-0 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
         {galery.map((item, index) => {
-          //console.log('items from galery: ', item)
+          console.log('items from galery: ', item)
           return (
             <form onSubmit={savePhoto} key={index} className="relative">
               <button className="bg-gray absolute left-5 top-3 shadow-md">

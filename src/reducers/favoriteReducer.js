@@ -12,6 +12,14 @@ export const favoriteReducer = (
       return [...state.filter((item) => item.id !== action.payload.id)];
       break;
 
+      case "@favorites/filtrarFecha":
+        return [...state.sort((a, b) => a.fecha - b.fecha)];
+      break;
+
+      case "@favorites/filtrarLikes":
+        return [...state.sort((a, b) => a.likes - b.likes)];
+      break;
+
     default:
       return state;
       break;
@@ -39,3 +47,15 @@ export const actionRemoveFavorite = (data) => {
     },
   };
 };
+
+export const actionFiltrarFavorite = () => {
+    return {
+      type: "@favorites/filtrarFecha",
+    };
+}
+export const actionFiltrarLikes = () => {
+    return {
+      type: "@favorites/filtrarLikes",
+    };
+}
+
