@@ -1,3 +1,5 @@
+
+
 export const favoriteReducer = (
   state = JSON.parse(localStorage.getItem("reduxState")) || [],
   action
@@ -10,6 +12,14 @@ export const favoriteReducer = (
     case "@favorites/remove":
         //console.log([...state.filter((item) => console.log('items', item))])
       return [...state.filter((item) => item.id !== action.payload.id)];
+      break;
+
+      case "@favorites/filtrarFecha":
+        return [...state.sort((a, b) => a.fecha - b.fecha)];
+      break;
+
+      case "@favorites/filtrarLikes":
+        return [...state.sort((a, b) => a.likes - b.likes)];
       break;
 
     default:
@@ -39,3 +49,15 @@ export const actionRemoveFavorite = (data) => {
     },
   };
 };
+
+export const actionFiltrarFavorite = () => {
+    return {
+      type: "@favorites/filtrarFecha",
+    };
+}
+export const actionFiltrarLikes = () => {
+    return {
+      type: "@favorites/filtrarLikes",
+    };
+}
+

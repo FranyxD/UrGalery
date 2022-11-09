@@ -7,6 +7,7 @@ import Footer from "./components/Footer";
 import Favorites from './components/Favorites';
 
 function App() {
+  
   return (
     <BrowserRouter>
     <Header />
