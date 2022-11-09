@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/UrGalery/static/css/main.a578eea1.css",
-    "main.js": "/UrGalery/static/js/main.c1b3eec0.js",
+    "main.css": "/UrGalery/static/css/main.f27791aa.css",
+    "main.js": "/UrGalery/static/js/main.156825b7.js",
     "static/js/787.88262bb6.chunk.js": "/UrGalery/static/js/787.88262bb6.chunk.js",
     "index.html": "/UrGalery/index.html",
-    "main.a578eea1.css.map": "/UrGalery/static/css/main.a578eea1.css.map",
-    "main.c1b3eec0.js.map": "/UrGalery/static/js/main.c1b3eec0.js.map",
+    "main.f27791aa.css.map": "/UrGalery/static/css/main.f27791aa.css.map",
+    "main.156825b7.js.map": "/UrGalery/static/js/main.156825b7.js.map",
     "787.88262bb6.chunk.js.map": "/UrGalery/static/js/787.88262bb6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.a578eea1.css",
-    "static/js/main.c1b3eec0.js"
+    "static/css/main.f27791aa.css",
+    "static/js/main.156825b7.js"
   ]
 }
