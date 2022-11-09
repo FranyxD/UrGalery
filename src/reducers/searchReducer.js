@@ -22,3 +22,14 @@ export const actionSearch = valor =>{
     }
     
 }
+
+export const actionRandom = valor =>{
+    return async dispatch =>{
+        const fotos = await fotosGeneradas(valor);
+        dispatch({
+            type: '@search/Result',
+            payload: fotos
+        })
+    }
+    
+}

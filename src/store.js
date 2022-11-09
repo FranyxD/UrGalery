@@ -6,6 +6,9 @@ import { combineReducers } from "@reduxjs/toolkit";
 import { composeWithDevTools } from "redux-devtools-extension";
 import thunk from "redux-thunk";
 
+
+
+
 const reducer = combineReducers({
   search: searchReducer,
   favorite: favoriteReducer,
@@ -15,5 +18,12 @@ export const store = createStore(
   reducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
+
+store.subscribe(()=>{
+  
+    localStorage.setItem('reduxState', JSON.stringify(store.getState().favorite))
+  
+  
+})
 
 export default store;
