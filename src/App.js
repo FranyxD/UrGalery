@@ -7,12 +7,14 @@ import Footer from "./components/Footer";
 import Favorites from './components/Favorites';
 
 function App() {
+  
   return (
     <BrowserRouter>
     <Header />
     <Routes>
+      <Route path="/UrGalery" element={<Home />} />
       <Route path="/" element={<Home />} />
-      <Route path="/Favorites" element={<Favorites/>}/>
+      <Route path="/Favorites" element={<Favorites />}/>
     </Routes>
       <Footer />
     </BrowserRouter>

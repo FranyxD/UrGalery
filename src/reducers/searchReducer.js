@@ -15,7 +15,17 @@ export const searchReducer = (state = [], action) => {
 export const actionSearch = valor =>{
     return async dispatch =>{
         const fotos = await fotosGeneradas(valor);
-        console.log('action',valor)
+        dispatch({
+            type: '@search/Result',
+            payload: fotos
+        })
+    }
+    
+}
+
+export const actionRandom = valor =>{
+    return async dispatch =>{
+        const fotos = await fotosGeneradas(valor);
         dispatch({
             type: '@search/Result',
             payload: fotos
