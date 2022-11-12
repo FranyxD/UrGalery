@@ -1,27 +1,28 @@
-import { favoriteReducer } from "./reducers/favoriteReducer";
-import { searchReducer } from "./reducers/searchReducer";
-import { configureStore } from "@reduxjs/toolkit";
-import { applyMiddleware, createStore } from "redux";
-import { combineReducers } from "@reduxjs/toolkit";
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunk from "redux-thunk";
+import  favoriteReducer  from "./slices/favoriteSlice";
+import { combineReducers, configureStore, current } from "@reduxjs/toolkit";
+import  filterReducer  from "./slices/filterSlice";
+import searchReducer from './slices/searchSlice';
 
 
-const reducer = combineReducers({
-  search: searchReducer,
-  favorite: favoriteReducer,
-});
+export const store = configureStore({
+  reducer: {
+    search: searchReducer,
+    favorites: favoriteReducer,
+    filter: filterReducer
+  },
+})
+  
 
-export const store = createStore(
-  reducer,
-  composeWithDevTools(applyMiddleware(thunk))
-);
+
 
 store.subscribe(()=>{
-  
-    localStorage.setItem('reduxState', JSON.stringify(store.getState().favorite))
-  
-  
+      localStorage.setItem('reduxState', JSON.stringify(store.getState().favorites))   
+      
 })
+
+
+
+
+
 
 export default store;

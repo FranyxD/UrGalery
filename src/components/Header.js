@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { Switch } from "@headlessui/react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionSearch } from "../reducers/searchReducer";
+import { actionSearchResult } from "../slices/searchSlice";
 import { NavLink } from "react-router-dom";
+
+export const refresh = () => {
+  window.location.reload();
+}
 
 function Header() {
   const dispatch = useDispatch();
@@ -35,11 +39,13 @@ function Header() {
     }
   };
 
+  
+
   const inputSearch = async (event) => {
     event.preventDefault();
     const { target } = event;
     const content = target.buscador.value;
-    dispatch(actionSearch(content));
+    dispatch(actionSearchResult(content));
   };
 
   return (
@@ -83,7 +89,7 @@ function Header() {
             />
           </svg>
         </NavLink>
-        <NavLink to="/Favorites">
+        <NavLink  to="/Favorites">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"

@@ -1,21 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { actionAddFavorite } from "../reducers/favoriteReducer";
-import { actionSearch, actionRandom } from "../reducers/searchReducer";
+
+import { actionRandomPhotos } from "../services/services";
+import { actionAddToFavorites } from "../slices/favoriteSlice";
+import { selectState } from "../slices/searchSlice";
 import Modal from "./modal";
 
 function Home() {
-  const galery = useSelector((state) => state.search);
-  const favorites = useSelector((state) => state.favorite);
   const dispatch = useDispatch();
+  const galery = useSelector(state => state.search);
   const [saveImages, setSaveImages] = useState([]);
-
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
 
   useEffect(() => {
-    dispatch(actionRandom('https://api.unsplash.com/photos/random/?client_id=${API_KEY}&per_page=20'))
-  }, [])
+    dispatch(actionRandomPhotos());
+    
+  }, [dispatch]);
+
+  
 
   function closeModal() {
     setIsOpen(false);
@@ -31,17 +34,19 @@ function Home() {
     const dateSave = new Date();
     //const fecha = `${dateSave.getDate()}-${dateSave.getMonth()}-${dateSave.getFullYear()}`
     const fecha = dateSave.getMilliseconds();
-
-    console.log('fecha de guardado', fecha)
+    //console.log("fecha de guardado", fecha);
     const { target } = e;
-    const data = target.photo;
-    const attrValues = data
-      .getAttributeNames()
-      .map((name) => data.getAttribute(name));
-    console.log("data", attrValues);
-    console.log("saveImages estado: ", saveImages);
-    dispatch(actionAddFavorite(attrValues, fecha));
+    const data = target.id;
+    galery.filter(item => {
+      if (item.id === data) {
+        console.log('id filter: ', item.id)
+        return dispatch(actionAddToFavorites(item));
+    }
+    return ''
+  })
+    
   }
+
 
   return (
     <main className=" my-24">
@@ -53,11 +58,12 @@ function Home() {
       />
 
       <section className="w-full gap-0 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
+
         {galery.map((item, index) => {
-          console.log('items from galery: ', item)
+          //console.log("items from galery: ", item);
           return (
-            <form onSubmit={savePhoto} key={index} className="relative">
-              <button className="bg-gray absolute left-5 top-3 shadow-md">
+            <figure key={index} className="relative">
+              <button id={item.id} onClick={savePhoto} className="bg-gray absolute left-5 top-3 shadow-md">
                 Guardar
               </button>
               <img
@@ -68,12 +74,11 @@ function Home() {
                 name="photo"
                 className="object-cover p-2"
                 onClick={openModal}
-                
-                
               />
-            </form>
+            </figure>
           );
-        })}
+        })
+      }
       </section>
     </main>
   );

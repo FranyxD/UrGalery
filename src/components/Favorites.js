@@ -1,34 +1,51 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { actionRemoveToFavorites } from "../slices/favoriteSlice";
 import {
-  actionFiltrarFavorite,
-  actionFiltrarLikes,
-  actionRemoveFavorite,
-} from "../reducers/favoriteReducer";
+  actionFilterFecha,
+  actionFilterLikes,
+  actionFilterSearch,
+} from "../slices/filterSlice";
 
 function Favorites() {
-  const favorites = useSelector((state) => state.favorite);
   const dispatch = useDispatch();
+  const favorites = useSelector((state) => state.favorites);
+
+  //hacer useselector para quitar el subscribe
+
+  const [filter, setFilter] = useState(favorites);
+  useEffect(() => {
+    
+    
+
+  }, [favorites]);
 
   const filtrarFecha = () => {
-    dispatch(actionFiltrarFavorite());
+    //usar setFilter
+    dispatch(actionFilterFecha());
   };
 
   const filtrarLikes = () => {
-    dispatch(actionFiltrarLikes());
+    dispatch(actionFilterLikes());
+  };
+
+  const searchFavorites = (e) => {
+    e.preventDefault();
+    const { target } = e;
+    const data = target.inputSearch.value;
+    console.log("data search", data);
+    dispatch(actionFilterSearch(data));
   };
 
   const deletePhoto = (e) => {
     e.preventDefault();
     const { target } = e;
-    const data = target.photo;
-    const content = target.photo.id;
-    console.log(content);
-    const attrValues = data
-      .getAttributeNames()
-      .map((name) => data.getAttribute(name));
-    console.log("activado delete");
-    dispatch(actionRemoveFavorite(content));
+    const data = target.id;
+    favorites.filter((item) => {
+      if (item.id === data) {
+        return dispatch(actionRemoveToFavorites(item.id));
+      }
+    });
   };
 
   const consol = () => {
@@ -40,33 +57,56 @@ function Favorites() {
   };
   return (
     <main className="mt-20 h-full">
-      <h1>Your Favorites photos</h1>
-      <button onClick={consol}>mostrar log de favorites</button>
-      <button onClick={() => filtrarFecha()}>filtrar por fecha</button>
-      <button onClick={() => filtrarLikes()}>filtrar por likes</button>
+      <form onSubmit={searchFavorites} className="ml-2 flex gap-5">
+        <input name="inputSearch"></input>
+        <button>Search</button>
+      </form>
+      <button
+        className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
+        onClick={consol}
+      >
+        mostrar log de favorites
+      </button>
+      <button
+        className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
+        onClick={() => filtrarFecha()}
+      >
+        filtrar por fecha
+      </button>
+      <button
+        className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
+        onClick={() => filtrarLikes()}
+      >
+        filtrar por likes
+      </button>
       <section className="w-full gap-0 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
-        {favorites &&
-          favorites.map((item, index) => {
-            console.log(item);
+        {filter &&
+          filter.map((item, index) => {
+            //console.log(item);
             return (
-              <form onSubmit={deletePhoto} className="relative" key={index}>
-                <a download href={item.url}>
-                <img
-                  id={item.id}
-                  name="photo"
-                  className="object-cover p-2"
-                  src={item.url}
-                  alt={item.title}
-                  
-                />
+              <figure className="relative" key={index}>
+                <a download href={item.urls.regular}>
+                  <img
+                    id={item.id}
+                    name="photo"
+                    className="object-cover p-2"
+                    src={item.urls.regular}
+                    alt={item.title}
+                  />
                 </a>
                 <figcaption className="absolute bottom-3 left-3 rounded bg-white p-2">
-                  {item.title}
+                  {item.description ? item.description : "undefined"}
                   <span>-{item.likes}</span>
                 </figcaption>
 
-                <button className="absolute bottom-3 right-3">Borrar</button>
-              </form>
+                <button
+                  id={item.id}
+                  onClick={deletePhoto}
+                  className="absolute bottom-3 right-3"
+                >
+                  Borrar
+                </button>
+              </figure>
             );
           })}
       </section>
