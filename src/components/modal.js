@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
+import { actionRemoveToFavorites } from "../slices/favoriteSlice";
 
 function Modal({openModal, closeModal, imag, isOpen}) {
     
@@ -38,7 +39,9 @@ function Modal({openModal, closeModal, imag, isOpen}) {
                 src={imag.src}
                 alt={imag.alt}
               />
+              
             </div>
+            
           </Dialog.Panel>
         </Dialog>
       </Transition>

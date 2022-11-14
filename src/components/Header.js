@@ -8,7 +8,7 @@ export const refresh = () => {
   window.location.reload();
 }
 
-function Header() {
+function Header({buscador}) {
   const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -40,16 +40,11 @@ function Header() {
   };
 
   
-
-  const inputSearch = async (event) => {
-    event.preventDefault();
-    const { target } = event;
-    const content = target.buscador.value;
-    dispatch(actionSearchResult(content));
-  };
+ 
+  
 
   return (
-    <header className="fixed z-10  w-full bg-black max-md:bottom-0 md:top-0">
+    <header className="fixed z-10  w-full bg-slate-600 dark:bg-black max-md:bottom-0 md:top-0">
       <nav className="flex items-center gap-x-5 p-3">
         <Switch
           checked={darkMode}
@@ -64,7 +59,7 @@ function Header() {
             pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
           />
         </Switch>
-        <form className="flex gap-3" onSubmit={inputSearch}>
+        <form className="flex gap-3" onSubmit={buscador}>
           <input
             type="text"
             name="buscador"
@@ -105,6 +100,7 @@ function Header() {
             />
           </svg>
         </NavLink>
+        
       </nav>
     </header>
   );
