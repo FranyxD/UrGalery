@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { actionRandomPhotos } from "../services/services";
+import { actionRandomPhotos, actionSearchPhotos } from "../services/services";
 import { actionAddToFavorites } from "../slices/favoriteSlice";
-import { selectState } from "../slices/searchSlice";
+import { actionSearchResult, selectState } from "../slices/searchSlice";
+import Header from "./Header";
 import Modal from "./modal";
 
 function Home() {
@@ -46,9 +47,21 @@ function Home() {
   })
     
   }
+ const inputSearch = async (event) => {
+    event.preventDefault();
+    const { target } = event;
+    const content = target.buscador.value;
+    if(content){
+      dispatch(actionSearchPhotos(content))
+    }else {
+      dispatch(actionRandomPhotos())
+    }
 
+  };
 
   return (
+    <>
+    <Header buscador={inputSearch}/>
     <main className=" my-24">
       <Modal
         openModal={openModal}
@@ -81,6 +94,7 @@ function Home() {
       }
       </section>
     </main>
+    </>
   );
 }
 export default Home;

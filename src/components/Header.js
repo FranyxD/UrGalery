@@ -8,7 +8,7 @@ export const refresh = () => {
   window.location.reload();
 }
 
-function Header() {
+function Header({buscador}) {
   const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {
@@ -40,40 +40,15 @@ function Header() {
   };
 
   
-
-  const inputSearch = async (event) => {
-    event.preventDefault();
-    const { target } = event;
-    const content = target.buscador.value;
-    dispatch(actionSearchResult(content));
-  };
+ 
+  
 
   return (
-    <header className="fixed z-10  w-full bg-black max-md:bottom-0 md:top-0">
-      <nav className="flex items-center gap-x-5 p-3">
-        <Switch
-          checked={darkMode}
-          onChange={changeTheme}
-          className={`${darkMode ? "bg-teal-900" : "bg-teal-700"}
-          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-        >
-          <span className="sr-only">Use setting</span>
-          <span
-            aria-hidden="true"
-            className={`${darkMode ? "translate-x-9" : "translate-x-0"}
-            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-          />
-        </Switch>
-        <form className="flex gap-3" onSubmit={inputSearch}>
-          <input
-            type="text"
-            name="buscador"
-            className="w-full rounded bg-white"
-          />
-          <button className="text-white dark:text-black">Buscar</button>
-        </form>
-
-        <NavLink to="/">
+    <header className="fixed z-10  w-full bg-slate-600 dark:bg-black max-md:bottom-0 md:top-0">
+      <div className="flex items-center gap-x-5 justify-between p-3">
+      <nav className='flex items-center gap-x-5'>
+        <h1 className="text-white font-italiana text-3xl">UrGalery</h1>
+        <NavLink  to="/">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -89,7 +64,7 @@ function Header() {
             />
           </svg>
         </NavLink>
-        <NavLink  to="/Favorites">
+        <NavLink to="/Favorites">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -105,7 +80,36 @@ function Header() {
             />
           </svg>
         </NavLink>
-      </nav>
+        </nav>
+
+        <div className="flex items-center gap-x-5">
+        <form className="flex gap-3" onSubmit={buscador}>
+          <input
+            type="text"
+            name="buscador"
+            className="w-full rounded bg-white"
+          />
+          <button className="text-white dark:text-black">Buscar</button>
+        </form>
+        <Switch
+          checked={darkMode}
+          onChange={changeTheme}
+          className={`${darkMode ? "bg-teal-900" : "bg-teal-700"}
+          relative inline-flex h-[38px] w-[74px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+        >
+          <span className="sr-only">Use setting</span>
+          <span
+            aria-hidden="true"
+            className={`${darkMode ? "translate-x-9" : "translate-x-0"}
+            pointer-events-none inline-block h-[34px] w-[34px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+          />
+        </Switch>
+        </div>
+      </div>
+      
+      
+        
+      
     </header>
   );
 }

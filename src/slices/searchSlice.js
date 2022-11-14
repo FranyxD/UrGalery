@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { actionRandomPhotos } from "../services/services";
+import { actionRandomPhotos, actionSearchPhotos } from "../services/services";
 
 /*
 export const searchReducer = (state = [], action) => {
@@ -37,16 +37,18 @@ export const actionRandom = (valor) => {
 export const searchSlice = createSlice({
   name: "search",
   initialState: [],
-  reducers: {
-    actionSearchResult: (state, action) => {
-      state.push({ ...action.payload });
-      console.log(action);
-    },
-  },
+  reducers: {},
     extraReducers: (builder) => {
-      builder.addCase(actionRandomPhotos.fulfilled, (state, action) => {
+      builder
+      .addCase(actionRandomPhotos.fulfilled, (state, action) => {
         return action.payload;
-      });
+      })
+      builder
+      .addCase(actionSearchPhotos.fulfilled, (state, action) =>{
+        return action.payload;
+
+      })
+      
     },
 });
 

@@ -80,10 +80,12 @@ export const filterSlice = createSlice({
               })
         },
         actionFilterFecha: (state, action) => {
-            state.sort((a, b) => a.fecha - b.fecha)
+          console.log(state)
+            return state.sort((a, b) => a.fecha - b.fecha)
         },
         actionFilterLikes: (state, action) => {
-            state.sort((a, b) => a.likes - b.likes)
+          console.log(state)
+            return state.sort((a, b) => a.likes - b.likes)
         }
     }
 })

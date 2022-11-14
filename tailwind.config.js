@@ -18,7 +18,12 @@ module.exports = {
         'black': '#0f0f0f',
         'white': '#f0f0f0',
       },
+      fontFamily: {
+        'italiana': ['Italiana']
+      },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

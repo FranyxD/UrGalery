@@ -10,7 +10,7 @@ function App() {
   
   return (
     <BrowserRouter>
-    <Header />
+    
     <Routes>
       <Route path="/UrGalery" element={<Home />} />
       <Route path="/" element={<Home />} />

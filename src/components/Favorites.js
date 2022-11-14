@@ -6,35 +6,66 @@ import {
   actionFilterLikes,
   actionFilterSearch,
 } from "../slices/filterSlice";
+import ModalFavorites from "../components/ModalFavorites";
+import Header from "./Header";
 
 function Favorites() {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const [isOpen, setIsOpen] = useState(false);
+  const [imag, setImg] = useState("");
+
+  //MODAL
+  function closeModal() {
+    setIsOpen(false);
+  }
+
+  const openModal = (item) => {
+    setIsOpen(true);
+    setImg(item);
+  };
 
   //hacer useselector para quitar el subscribe
-
   const [filter, setFilter] = useState(favorites);
   useEffect(() => {
-    
-    
-
+    setFilter(favorites);
   }, [favorites]);
 
-  const filtrarFecha = () => {
-    //usar setFilter
-    dispatch(actionFilterFecha());
-  };
-
-  const filtrarLikes = () => {
-    dispatch(actionFilterLikes());
-  };
-
+  //FILTROS
   const searchFavorites = (e) => {
     e.preventDefault();
     const { target } = e;
-    const data = target.inputSearch.value;
-    console.log("data search", data);
-    dispatch(actionFilterSearch(data));
+    const data = target.buscador.value;
+
+    setFilter(
+      filter.filter((item, index) => {
+        console.log("estado actual", filter);
+        console.log("//action: ", data);
+        if (item.description === null) {
+          console.log("descripcion es null");
+          return filter;
+        } else {
+          if (data.search(item.description) !== -1) {
+            console.log("coincide");
+          }
+          //item.title.search(action.payload.title)
+          return item.description.search(data) !== -1;
+        }
+      })
+    );
+  };
+
+  const filtrarFecha = () => {
+    //usar setFilter
+    setFilter(
+      filter.slice().sort((a, b) => b.fecha - a.fecha )
+    )
+  };
+
+  const filtrarLikes = () => {
+    setFilter(
+      filter.slice().sort((a, b) => a.likes - b.likes)
+    )
   };
 
   const deletePhoto = (e) => {
@@ -48,15 +79,24 @@ function Favorites() {
     });
   };
 
+  //EDITAR DESCRIPTION
+  
+
   const consol = () => {
     console.log(
-      favorites.sort(
-        (a, b) => new Date(a.fecha).getTime() > new Date(b.fecha).getTime()
-      )
+      filter.map((item) => console.log(item.likes))
     );
   };
   return (
-    <main className="mt-20 h-full">
+    <>
+    <Header buscador={searchFavorites}/>
+    <main className="mt-20 h-full bg-white dark:bg-black">
+      <ModalFavorites
+        openModal={openModal}
+        closeModal={closeModal}
+        imag={imag}
+        isOpen={isOpen}
+      />
       <form onSubmit={searchFavorites} className="ml-2 flex gap-5">
         <input name="inputSearch"></input>
         <button>Search</button>
@@ -85,14 +125,16 @@ function Favorites() {
             //console.log(item);
             return (
               <figure className="relative" key={index}>
+                <img
+                  id={item.id}
+                  name="photo"
+                  className="object-cover p-2"
+                  src={item.urls.regular}
+                  alt={item.title}
+                  onClick={() => openModal(item)}
+                />
                 <a download href={item.urls.regular}>
-                  <img
-                    id={item.id}
-                    name="photo"
-                    className="object-cover p-2"
-                    src={item.urls.regular}
-                    alt={item.title}
-                  />
+                  Descargar
                 </a>
                 <figcaption className="absolute bottom-3 left-3 rounded bg-white p-2">
                   {item.description ? item.description : "undefined"}
@@ -111,6 +153,7 @@ function Favorites() {
           })}
       </section>
     </main>
+    </>
   );
 }
 
