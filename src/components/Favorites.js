@@ -6,7 +6,7 @@ import {
   actionFilterLikes,
   actionFilterSearch,
 } from "../slices/filterSlice";
-import ModalFavorites from "../components/ModalFavorites";
+import ModalFavorites from "./ModalFavorites";
 import Header from "./Header";
 
 function Favorites() {

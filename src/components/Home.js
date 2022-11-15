@@ -33,9 +33,7 @@ function Home() {
   function savePhoto(e) {
     e.preventDefault();
     const dateSave = new Date();
-    //const fecha = `${dateSave.getDate()}-${dateSave.getMonth()}-${dateSave.getFullYear()}`
     const fecha = dateSave.getMilliseconds();
-    //console.log("fecha de guardado", fecha);
     const { target } = e;
     const data = target.id;
     galery.filter(item => {
@@ -73,7 +71,7 @@ function Home() {
       <section className="w-full gap-0 sm:columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
 
         {galery.map((item, index) => {
-          //console.log("items from galery: ", item);
+          console.log("items from galery: ", item);
           return (
             <figure key={index} className="relative">
               <button id={item.id} onClick={savePhoto} className="bg-gray absolute left-5 top-3 shadow-md">
