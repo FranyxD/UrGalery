@@ -15,10 +15,15 @@ module.exports = {
         '3xl': '1850px',
       },
       colors: {
-        'black': '#0f0f0f',
+        'black': '#1D1D1D',
         'white': '#f0f0f0',
+      },
+      fontFamily: {
+        'italiana': ['Italiana']
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+  ],
 }

@@ -1,0 +1,26 @@
+{
+  "notes": [
+    {
+      "content": "bienvenidos a la miduclase",
+      "important": true,
+      "id": 1,
+      "url": "https://images.unsplash.com/photo-1645104948571-e597cfb11423?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNzcyMjF8MHwxfHNlYXJjaHw3fHxodHRwcyUzQSUyRiUyRmFwaS51bnNwbGFzaC5jb20lMkZwaG90b3MlMkZyYW5kb20lMkYlM0ZjbGllbnRfaWQlM0QlMjQlN0JBUElfS0VZJTdEfGVufDB8fHx8MTY2ODE1OTE1Nw&ixlib=rb-4.0.3&q=80&w=1080"
+    },
+    {
+      "content": "Gracias por venir a la clase",
+      "important": false,
+      "id": 2,
+      "url" : "https://images.unsplash.com/photo-1500462918059-b1a0cb512f1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNzcyMjF8MHwxfHNlYXJjaHwxfHxodHRwcyUzQSUyRiUyRmFwaS51bnNwbGFzaC5jb20lMkZwaG90b3MlMkZyYW5kb20lMkYlM0ZjbGllbnRfaWQlM0QlMjQlN0JBUElfS0VZJTdEfGVufDB8fHx8MTY2ODE1OTE1Nw&ixlib=rb-4.0.3&q=80&w=1080"
+    },
+    {
+      "content": "asd",
+      "important": false,
+      "id": 3
+    },
+    {
+      "content": "asd",
+      "important": false,
+      "id": 4
+    }
+  ]
+}
