@@ -1,10 +1,9 @@
 import React from "react";
-import "./App.css";
+import "../App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./components/Home";
-import Header from "./components/Header";
+import Home from "./pages/Home";
 import Footer from "./components/Footer";
-import Favorites from './components/Favorites';
+import Favorites from './pages/Favorites';
 
 function App() {
   

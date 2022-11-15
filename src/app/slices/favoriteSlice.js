@@ -1,5 +1,4 @@
 import { createSlice, current } from "@reduxjs/toolkit";
-import Favorites from "../components/Favorites";
 
 
 
@@ -10,8 +9,8 @@ export const favoriteSlice = createSlice({
     actionAddToFavorites: (state, action) => {
       const dateSave = new Date();
       console.log(dateSave.getTime())
-     const fecha = `${dateSave.getFullYear()}-${dateSave.getMonth()}-${dateSave.getDate()}`
-//      const fecha = dateSave.getMilliseconds();
+     //const fecha = `${dateSave.getFullYear()}-${dateSave.getMonth()}-${dateSave.getDate()}`
+    //const fecha = dateSave.getMilliseconds();
       state.push({...action.payload, fecha: dateSave.getTime()})
       console.log(current(state))
     },

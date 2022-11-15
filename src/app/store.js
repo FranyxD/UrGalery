@@ -1,5 +1,5 @@
 import  favoriteReducer  from "./slices/favoriteSlice";
-import { combineReducers, configureStore, current } from "@reduxjs/toolkit";
+import { configureStore, current } from "@reduxjs/toolkit";
 import  filterReducer  from "./slices/filterSlice";
 import searchReducer from './slices/searchSlice';
 
