@@ -1,16 +1,25 @@
 {
   "files": {
-    "main.css": "/UrGalery/static/css/main.ff5e4da1.css",
-    "main.js": "/UrGalery/static/js/main.5a2be9c6.js",
+    "main.css": "/UrGalery/static/css/main.7894d1e6.css",
+    "main.js": "/UrGalery/static/js/main.ee05e3bf.js",
     "static/js/787.88262bb6.chunk.js": "/UrGalery/static/js/787.88262bb6.chunk.js",
+    "static/media/stars.svg": "/UrGalery/static/media/stars.3fb57266756187f3fa24.svg",
     "index.html": "/UrGalery/index.html",
-    "static/media/edit.svg": "/UrGalery/static/media/edit.7b4f1abde7941a5a584d.svg",
-    "main.ff5e4da1.css.map": "/UrGalery/static/css/main.ff5e4da1.css.map",
-    "main.5a2be9c6.js.map": "/UrGalery/static/js/main.5a2be9c6.js.map",
+    "static/media/like.svg": "/UrGalery/static/media/like.f9395c11884e896b5668d9783351a44d.svg",
+    "static/media/view.svg": "/UrGalery/static/media/view.392b5dac1dddadb1bc36793035c7c2ea.svg",
+    "static/media/light.svg": "/UrGalery/static/media/light.f68e7fee9072fec574512fd09c270972.svg",
+    "static/media/dark.svg": "/UrGalery/static/media/dark.dbcd930423c7c4c8ce48400f678776b6.svg",
+    "static/media/notSave.svg": "/UrGalery/static/media/notSave.0ab6ee5bcd91408286aad1250fbd37ee.svg",
+    "static/media/isSave.svg": "/UrGalery/static/media/isSave.11fab2d22f8feda323d15bca2207f978.svg",
+    "static/media/cloud.svg": "/UrGalery/static/media/cloud.10669ff6f32273114835.svg",
+    "static/media/download.svg": "/UrGalery/static/media/download.aae465dffa0f247fa2bb9c71d673531b.svg",
+    "static/media/null.svg": "/UrGalery/static/media/null.09efa1a5e30f41b88e362e20f3bb23b6.svg",
+    "main.7894d1e6.css.map": "/UrGalery/static/css/main.7894d1e6.css.map",
+    "main.ee05e3bf.js.map": "/UrGalery/static/js/main.ee05e3bf.js.map",
     "787.88262bb6.chunk.js.map": "/UrGalery/static/js/787.88262bb6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.ff5e4da1.css",
-    "static/js/main.5a2be9c6.js"
+    "static/css/main.7894d1e6.css",
+    "static/js/main.ee05e3bf.js"
   ]
 }
