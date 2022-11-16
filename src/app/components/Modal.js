@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import {
@@ -8,65 +8,66 @@ import {
 } from "../slices/favoriteSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { downloadImage } from "../Modules/functions";
+import { ReactComponent as DownloadIcon } from "../../images/download.svg";
+import { ReactComponent as IsSaveIcon } from "../../images/isSave.svg";
+import { ReactComponent as NotSaveIcon } from "../../images/notSave.svg";
+import { ReactComponent as ViewIcon } from "../../images/view.svg";
+import {ReactComponent as LikeIcon} from '../../images/like.svg';
 
-function Modal({ openModal, closeModal, imag, isOpen }) {
+function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState("");
+  const [description, setDescripton] = useState("");
+
+  const [filter, setFilter] = useState(favorites);
+
+  useEffect(() => {
+    setFilter(favorites);
+    favorites.some((item) => {
+      if (item.id === imag.id) {
+        setImg(item);
+      }
+    });
+  }, [favorites]);
 
   const editDescription = (e) => {
     e.preventDefault();
-    const { target } = e;
-    const data = target.title.value;
-    const data2 = target.description.value;
-    console.log(data, data2)
-    console.log(imag.id);
+
+    //    const data = tar.title.value;
+    //const data2 = target.description.value;
+    console.log("form");
+    console.log(description);
+    console.log(title);
+
     dispatch(
       actionEditImag({
         id: imag.id,
-        description: data,
-        alt_description: data2
+        description: title,
+        alt_description: description,
       })
     );
+    setShow(false);
   };
-
 
   const isSave = () => {
     if (favorites.some((item) => item.id === imag.id)) {
       return (
-        <svg
+        <IsSaveIcon
           key={imag && imag.id}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
           className="h-10 w-10 rounded bg-black/60 fill-white p-1"
           onClick={() => dispatch(actionRemoveToFavorites(imag.id))}
-        >
-          <path
-            fillRule="evenodd"
-            d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
-            clipRule="evenodd"
-          />
-        </svg>
+        />
       );
     } else {
       console.log("is not matched");
       return (
-        <svg
+        <NotSaveIcon
           key={imag && imag.id}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
           className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-          />
-        </svg>
+          onClick={() => dispatch(actionAddToFavorites(imag))}
+        />
       );
     }
   };
@@ -84,7 +85,7 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
       as={Fragment}
     >
       <Dialog as="div" className="relative z-50 " onClose={closeModal}>
-        <div className="fixed inset-0 bg-black/70" aria-hidden="true" />
+        <div className="fixed inset-0  bg-black/70" aria-hidden="true" />
         <Transition.Child
           as={Fragment}
           enter="ease-out duration-300"
@@ -94,11 +95,11 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="fixed inset-0 max-md:inset-0 flex items-center justify-center p-4">
             {/* The actual dialog panel  */}
             <Dialog.Panel className="mx-auto max-w-sm rounded-lg border-2 border-white  bg-white dark:bg-black">
               <figure className=" mb-3 grid grid-cols-3 justify-between gap-3 dark:text-white">
-                <div className="relative row-start-1 col-span-full">
+                <div className="relative col-span-full row-start-1">
                   {/* IMAGE */}
                   <img
                     className="rounded"
@@ -114,12 +115,20 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                 {/* FORM EDIT TITLE */}
                 {show ? (
                   <form
-                    className="col-start-1 row-start-2 row-span-3 opacity-1 ml-3 w-full transition-all"
+                    className="opacity-1 col-start-1 row-span-3 row-start-2 ml-3 w-full transition-all"
                     onSubmit={editDescription}
                   >
-                    <input name="title" />
-                    <input className="my-2" name="description" />
-                    <button type="submit" onClick={() => setShow(false)} className="rounded bg-slate-600 py-1 px-2 text-white">
+                    <input
+                      name="title"
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <input
+                      name="description"
+                      className="my-2"
+                      onChange={(e) => setDescripton(e.target.value)}
+                    />
+
+                    <button className="mb-10 rounded bg-slate-600 py-1 px-2 text-white">
                       Save
                     </button>
                   </form>
@@ -148,27 +157,35 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                     </p>
                   </>
                 )}
+
+                {/* Width y Height */}
+                <span className="col-start-1 col-end-2 row-start-4 ml-3">
+                  Width: {imag.width}
+                </span>
+                <span className="col-start-1 col-end-2 row-start-5 ml-3">
+                  Height: {imag.height}
+                </span>
+
                 {/* DOWNLOAD IMAGE */}
-                <svg
+                <DownloadIcon
                   role="button"
                   onClick={() => downloadImage(imag)}
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                  className="col-start-3 row-start-2 h-6 w-6 justify-self-center dark:stroke-white"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                  />
-                </svg>
+                  className="mr-5 col-start-3 row-start-2 h-6 w-6 justify-self-end dark:text-white"
+                />
                 {/* LIKES */}
-                <span className="col-start-3 row-start-3 place-self-start justify-self-center">
-                  {imag.likes && imag.likes}
-                </span>
+                <div className="mr-5 col-start-3 row-start-3 gap-x-3 inline-flex place-self-end text-black dark:text-white">
+                  
+                  <span className="inline w-fit">{imag.likes && imag.likes}</span>
+                  <LikeIcon className="inline w-6" />
+                </div>
+                {/* VIEWS */}
+                <div className="mr-5 col-start-3 row-start-4 gap-x-3 inline-flex place-self-end text-black dark:text-white">
+                  
+                  <span className="inline w-fit">
+                    {imag.views && imag.views}
+                  </span>
+                  <ViewIcon className="inline w-6" />
+                </div>
               </figure>
             </Dialog.Panel>
           </div>
