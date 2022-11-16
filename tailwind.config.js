@@ -21,6 +21,7 @@ module.exports = {
         'white': '#f0f0f0',
         'midnight': '#462CB0',
         'midnight-light': '#5E579F',
+        'green-light': '#63B1AD',
       },
       fontFamily: {
         'italiana': ['Italiana']

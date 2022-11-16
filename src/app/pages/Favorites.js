@@ -27,6 +27,7 @@ function Favorites() {
   const [filter, setFilter] = useState(favorites);
   useEffect(() => {
     setFilter(favorites);
+    
   }, [favorites]);
 
   //FILTROS
@@ -54,14 +55,12 @@ function Favorites() {
     );
   };
 
-  const filtrarFecha = () => {
+
+  const filterButtons = (value) => {
     //usar setFilter
-    setFilter(filter.slice().sort((a, b) => b.fecha - a.fecha));
+    setFilter(filter.slice().sort((a, b) => b[value] - a[value]));
   };
 
-  const filtrarLikes = () => {
-    setFilter(filter.slice().sort((a, b) => a.likes - b.likes));
-  };
 
   const deletePhoto = (e) => {
     e.preventDefault();
@@ -120,25 +119,41 @@ function Favorites() {
   return (
     <>
       <Header buscador={searchFavorites} />
-      <main className="mt-20 h-full bg-white dark:bg-black">
+      <main className="max-md:mt-1 max-md:mb-16 mt-16 h-full bg-white dark:bg-black">
         <Modal
           openModal={openModal}
           closeModal={closeModal}
           imag={imag}
           isOpen={isOpen}
+          setImg={setImg}
         />
-        <button
-          className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
-          onClick={() => filtrarFecha()}
+        {/* BUTTONS FILTERS */}
+        <div className="ml-3 inline-flex gap-3">
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('fecha')}
         >
-          filtrar por fecha
+          By date
         </button>
         <button
-          className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
-          onClick={() => filtrarLikes()}
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('likes')}
         >
-          filtrar por likes
+          By likes
         </button>
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('width')}
+        >
+          By width
+        </button>
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('height')}
+        >
+          By height
+        </button>
+        </div>
         <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {filter &&
             filter.map((item, index) => {

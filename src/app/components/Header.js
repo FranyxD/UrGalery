@@ -44,8 +44,8 @@ function Header({ buscador }) {
   };
 
   return (
-    <header className="min-md:dark:border-t-2 fixed  z-10 w-full bg-slate-600 dark:border-white dark:bg-black max-md:bottom-0 max-md:dark:border-t-2 md:top-0">
-      <div className="pd-3 flex items-center justify-between gap-x-5 max-md:p-2">
+    <header className="fixed z-10 w-full border-0 bg-slate-500 p-2 dark:border-b-2 dark:border-white dark:bg-black max-md:bottom-0 max-md:p-0 max-md:dark:border-b-0 max-md:dark:border-t-2 md:top-0">
+      <div className="pd-3 flex items-center justify-between gap-x-5 bg-slate-500 dark:bg-black max-md:p-2">
         <nav className="flex items-center gap-x-5">
           <NavLink to="/">
             <h1 className="font-italiana text-3xl text-white max-sm:hidden">

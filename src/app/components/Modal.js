@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import {
@@ -9,31 +9,42 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { downloadImage } from "../Modules/functions";
 
-function Modal({ openModal, closeModal, imag, isOpen }) {
+function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const [show, setShow] = useState(false);
-  const [title, setTitle] = useState('');
-  const [description, setDescripton] = useState('')
+  const [title, setTitle] = useState("");
+  const [description, setDescripton] = useState("");
+
+  const [filter, setFilter] = useState(favorites);
+
+  useEffect(() => {
+    setFilter(favorites);
+    favorites.some((item) => {
+      if (item.id === imag.id) {
+        setImg(item)
+      }
+    })
+  }, [favorites]);
 
   const editDescription = (e) => {
     e.preventDefault();
-    
-//    const data = tar.title.value;
+
+    //    const data = tar.title.value;
     //const data2 = target.description.value;
-    console.log('form')
-    console.log(description)
-    console.log(title)
-    
+    console.log("form");
+    console.log(description);
+    console.log(title);
+
     dispatch(
       actionEditImag({
         id: imag.id,
         description: title,
-        alt_description: description
+        alt_description: description,
       })
     );
+    setShow(false)
   };
-
 
   const isSave = () => {
     if (favorites.some((item) => item.id === imag.id)) {
@@ -102,7 +113,9 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
             {/* The actual dialog panel  */}
             <Dialog.Panel className="mx-auto max-w-sm rounded-lg border-2 border-white  bg-white dark:bg-black">
               <figure className=" mb-3 grid grid-cols-3 justify-between gap-3 dark:text-white">
-                <div className="relative row-start-1 col-span-full">
+                <div className="relative col-span-full row-start-1">
+                  
+                  
                   {/* IMAGE */}
                   <img
                     className="rounded"
@@ -118,12 +131,20 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                 {/* FORM EDIT TITLE */}
                 {show ? (
                   <form
-                    className="col-start-1 row-start-2 row-span-3 opacity-1 ml-3 w-full transition-all"
+                    className="opacity-1 col-start-1 row-span-3 row-start-2 ml-3 w-full transition-all"
                     onSubmit={editDescription}
                   >
-                    <input name="title" onChange={(e) => setTitle(e.target.value)}/>
-                    <input name="description" onChange={(e) => setDescripton(e.target.value)}/>
-                    
+                    <input
+                      name="title"
+                      
+                      onChange={(e) => setTitle(e.target.value)}
+                    />
+                    <input
+                      name="description"
+                      className="my-2"
+                      onChange={(e) => setDescripton(e.target.value)}
+                    />
+
                     <button  className="rounded bg-slate-600 py-1 px-2 text-white">
                       Save
                     </button>
@@ -153,6 +174,11 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                     </p>
                   </>
                 )}
+
+                        {/* Width y Height */}
+                <span className="ml-3 row-start-4 col-start-1 col-end-2">Width: {imag.width}</span>
+                <span className="ml-3 row-start-5 col-start-1 col-end-2">Height: {imag.height}</span>
+
                 {/* DOWNLOAD IMAGE */}
                 <svg
                   role="button"
@@ -174,6 +200,11 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                 <span className="col-start-3 row-start-3 place-self-start justify-self-center">
                   {imag.likes && imag.likes}
                 </span>
+                {/* VIEWS */}
+                <span className="col-start-3 row-start-4 place-self-start justify-self-center">
+                  {imag.views && imag.views}
+                </span>
+
               </figure>
             </Dialog.Panel>
           </div>
