@@ -41,7 +41,7 @@ function Favorites() {
         console.log("//action: ", data);
         if (item.description === null) {
           console.log("descripcion es null");
-          return filter;
+          return item;
         } else {
           if (data.search(item.description) !== -1) {
             console.log("coincide");

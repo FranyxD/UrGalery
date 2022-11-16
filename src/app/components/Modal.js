@@ -13,19 +13,23 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const [show, setShow] = useState(false);
+  const [title, setTitle] = useState('');
+  const [description, setDescripton] = useState('')
 
   const editDescription = (e) => {
     e.preventDefault();
-    const { target } = e;
-    const data = target.title.value;
-    const data2 = target.description.value;
-    console.log(data, data2)
-    console.log(imag.id);
+    
+//    const data = tar.title.value;
+    //const data2 = target.description.value;
+    console.log('form')
+    console.log(description)
+    console.log(title)
+    
     dispatch(
       actionEditImag({
         id: imag.id,
-        description: data,
-        alt_description: data2
+        description: title,
+        alt_description: description
       })
     );
   };
@@ -117,9 +121,10 @@ function Modal({ openModal, closeModal, imag, isOpen }) {
                     className="col-start-1 row-start-2 row-span-3 opacity-1 ml-3 w-full transition-all"
                     onSubmit={editDescription}
                   >
-                    <input name="title" />
-                    <input className="my-2" name="description" />
-                    <button type="submit" onClick={() => setShow(false)} className="rounded bg-slate-600 py-1 px-2 text-white">
+                    <input name="title" onChange={(e) => setTitle(e.target.value)}/>
+                    <input name="description" onChange={(e) => setDescripton(e.target.value)}/>
+                    
+                    <button  className="rounded bg-slate-600 py-1 px-2 text-white">
                       Save
                     </button>
                   </form>
