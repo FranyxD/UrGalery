@@ -10,6 +10,8 @@ module.exports = {
       backgroundImage: {
         'light-pattern': "url('data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%230f0f0f' fill-opacity='0.3'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
         'dark-pattern': "url('data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='72' viewBox='0 0 36 72'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23f0f0f0' fill-opacity='0.19'%3E%3Cpath d='M2 6h12L8 18 2 6zm18 36h12l-6 12-6-12z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+        'stars': "url('./images/stars.svg')",
+        'cloud': "url('./images/cloud.svg')",
       },
       screens: {
         '3xl': '1850px',
@@ -17,6 +19,9 @@ module.exports = {
       colors: {
         'black': '#1D1D1D',
         'white': '#f0f0f0',
+        'midnight': '#462CB0',
+        'midnight-light': '#5E579F',
+        'green-light': '#63B1AD',
       },
       fontFamily: {
         'italiana': ['Italiana']

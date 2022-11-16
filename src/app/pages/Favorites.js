@@ -6,13 +6,15 @@ import {
 } from "../slices/favoriteSlice";
 import Modal from "../components/Modal";
 import Header from "../components/Header";
+import { ReactComponent as IsSaveIcon } from "../../images/isSave.svg";
+import { ReactComponent as NotSaveIcon } from "../../images/notSave.svg";
 
 function Favorites() {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
-
+  const [search, setSearch] = useState('')
   //MODAL
   function closeModal() {
     setIsOpen(false);
@@ -27,6 +29,7 @@ function Favorites() {
   const [filter, setFilter] = useState(favorites);
   useEffect(() => {
     setFilter(favorites);
+    
   }, [favorites]);
 
   //FILTROS
@@ -36,12 +39,13 @@ function Favorites() {
     const data = target.buscador.value;
 
     setFilter(
-      filter.filter((item, index) => {
+      favorites.slice().filter((item, index) => {
         console.log("estado actual", filter);
         console.log("//action: ", data);
         if (item.description === null) {
           console.log("descripcion es null");
-          return filter;
+          if(data === '') return item;
+          
         } else {
           if (data.search(item.description) !== -1) {
             console.log("coincide");
@@ -53,14 +57,12 @@ function Favorites() {
     );
   };
 
-  const filtrarFecha = () => {
+
+  const filterButtons = (value) => {
     //usar setFilter
-    setFilter(filter.slice().sort((a, b) => b.fecha - a.fecha));
+    setFilter(filter.slice().sort((a, b) => b[value] - a[value]));
   };
 
-  const filtrarLikes = () => {
-    setFilter(filter.slice().sort((a, b) => a.likes - b.likes));
-  };
 
   const deletePhoto = (e) => {
     e.preventDefault();
@@ -72,46 +74,26 @@ function Favorites() {
       }
     });
   };
-
   //mirar si esta guardado
+
   //mirar si esta guardado
   const isSave = (imag) => {
     if (favorites.some((item) => item.id === imag.id)) {
       return (
-        <svg
+        <IsSaveIcon
           key={imag && imag.id}
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
           className="h-10 w-10 rounded bg-black/60 fill-white p-1"
           onClick={() => dispatch(actionRemoveToFavorites(imag.id))}
-        >
-          <path
-            fillRule="evenodd"
-            d="M6.32 2.577a49.255 49.255 0 0111.36 0c1.497.174 2.57 1.46 2.57 2.93V21a.75.75 0 01-1.085.67L12 18.089l-7.165 3.583A.75.75 0 013.75 21V5.507c0-1.47 1.073-2.756 2.57-2.93z"
-            clipRule="evenodd"
-          />
-        </svg>
+        />
       );
     } else {
       console.log("is not matched");
       return (
-        <svg
+        <NotSaveIcon
           key={imag && imag.id}
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
           className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
-          onClick={() => dispatch(actionAddToFavorites(imag.id))}
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
-          />
-        </svg>
+          onClick={() => dispatch(actionAddToFavorites(imag))}
+        />
       );
     }
   };
@@ -119,28 +101,45 @@ function Favorites() {
   return (
     <>
       <Header buscador={searchFavorites} />
-      <main className="mt-20 h-full bg-white dark:bg-black">
+      <main className="mb-16 mt-3 md:mb-0 md:mt-16 bg-white dark:bg-black">
         <Modal
           openModal={openModal}
           closeModal={closeModal}
           imag={imag}
           isOpen={isOpen}
+          setImg={setImg}
         />
-        <button
-          className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
-          onClick={() => filtrarFecha()}
+        {/* BUTTONS FILTERS */}
+        <div className="ml-3 inline-flex flex-wrap gap-3">
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('fecha')}
         >
-          filtrar por fecha
+          By date
         </button>
         <button
-          className="m-2 rounded bg-gray-300 p-2 dark:bg-gray-600 dark:text-white"
-          onClick={() => filtrarLikes()}
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('likes')}
         >
-          filtrar por likes
+          By likes
         </button>
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('width')}
+        >
+          By width
+        </button>
+        <button 
+          className="m-2 font-mono tracking-tighter rounded bg-green-light p-2 dark:bg-midnight dark:text-white"
+          onClick={() => filterButtons('height')}
+        >
+          By height
+        </button>
+        </div>
         <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {filter &&
             filter.map((item, index) => {
+              console.log(item)
               //console.log(item);
               return (
                 <figure
@@ -159,13 +158,7 @@ function Favorites() {
                     {favorites && isSave(item)}
                   </div>
 
-                  {/*<button
-                  id={item.id}
-                  onClick={deletePhoto}
-                  className="absolute bottom-3 right-3"
-                >
-                  Borrar
-                </button>*/}
+                  
                 </figure>
               );
             })}
