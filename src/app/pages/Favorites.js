@@ -12,7 +12,7 @@ function Favorites() {
   const favorites = useSelector((state) => state.favorites);
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
-
+  const [search, setSearch] = useState('')
   //MODAL
   function closeModal() {
     setIsOpen(false);
@@ -36,12 +36,13 @@ function Favorites() {
     const data = target.buscador.value;
 
     setFilter(
-      filter.filter((item, index) => {
+      favorites.slice().filter((item, index) => {
         console.log("estado actual", filter);
         console.log("//action: ", data);
         if (item.description === null) {
           console.log("descripcion es null");
-          return item;
+          if(data === '') return item;
+          
         } else {
           if (data.search(item.description) !== -1) {
             console.log("coincide");
@@ -72,8 +73,8 @@ function Favorites() {
       }
     });
   };
-
   //mirar si esta guardado
+
   //mirar si esta guardado
   const isSave = (imag) => {
     if (favorites.some((item) => item.id === imag.id)) {
@@ -141,6 +142,7 @@ function Favorites() {
         <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {filter &&
             filter.map((item, index) => {
+              console.log(item)
               //console.log(item);
               return (
                 <figure
