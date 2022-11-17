@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/UrGalery/static/css/main.f9925c81.css",
-    "main.js": "/UrGalery/static/js/main.043c7252.js",
+    "main.css": "/UrGalery/static/css/main.6fc5aa9c.css",
+    "main.js": "/UrGalery/static/js/main.9956be67.js",
     "static/js/787.88262bb6.chunk.js": "/UrGalery/static/js/787.88262bb6.chunk.js",
     "static/media/stars.svg": "/UrGalery/static/media/stars.3fb57266756187f3fa24.svg",
     "index.html": "/UrGalery/index.html",
@@ -14,12 +14,12 @@
     "static/media/cloud.svg": "/UrGalery/static/media/cloud.10669ff6f32273114835.svg",
     "static/media/download.svg": "/UrGalery/static/media/download.aae465dffa0f247fa2bb9c71d673531b.svg",
     "static/media/null.svg": "/UrGalery/static/media/null.09efa1a5e30f41b88e362e20f3bb23b6.svg",
-    "main.f9925c81.css.map": "/UrGalery/static/css/main.f9925c81.css.map",
-    "main.043c7252.js.map": "/UrGalery/static/js/main.043c7252.js.map",
+    "main.6fc5aa9c.css.map": "/UrGalery/static/css/main.6fc5aa9c.css.map",
+    "main.9956be67.js.map": "/UrGalery/static/js/main.9956be67.js.map",
     "787.88262bb6.chunk.js.map": "/UrGalery/static/js/787.88262bb6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f9925c81.css",
-    "static/js/main.043c7252.js"
+    "static/css/main.6fc5aa9c.css",
+    "static/js/main.9956be67.js"
   ]
 }
