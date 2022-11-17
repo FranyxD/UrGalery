@@ -1,6 +1,9 @@
 link previsualizacion view
 https://franyxd.github.io/UrGalery/
 
+link del diseño en figma
+https://www.figma.com/file/i2sIV6XSCdPYOYxgWxEw8o/UrGalery?node-id=52%3A6389&t=gotmKcdZF24gdVda-1
+
 # Getting Started with Create React App and Redux
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app), using the [Redux](https://redux.js.org/) and [Redux Toolkit](https://redux-toolkit.js.org/) template.
