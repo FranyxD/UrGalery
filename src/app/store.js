@@ -16,8 +16,7 @@ export const store = configureStore({
 
 
 store.subscribe(()=>{
-      localStorage.setItem('reduxState', JSON.stringify(store.getState().favorites))   
-      
+      localStorage.setItem('reduxState', JSON.stringify(store.getState().favorites))
 })
 
 
