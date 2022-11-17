@@ -51,7 +51,7 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
     setShow(false);
   };
 
-  const isSave = () => {
+  const isSave = (imag) => {
     if (favorites.some((item) => item.id === imag.id)) {
       return (
         <IsSaveIcon
