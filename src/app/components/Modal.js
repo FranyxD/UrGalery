@@ -65,7 +65,7 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
       return (
         <NotSaveIcon
           key={imag && imag.id}
-          className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
+          className="h-10 w-10 rounded bg-black/60 fill-none stroke-white p-1"
           onClick={() => dispatch(actionAddToFavorites(imag))}
         />
       );
@@ -95,7 +95,7 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 flex items-center justify-center p-4">
+          <div className="fixed inset-0 flex max-md:m-5 items-center justify-center p-4">
             {/* The actual dialog panel  */}
             <Dialog.Panel className="mx-auto max-w-sm rounded-lg border-2 border-white  bg-white dark:bg-black">
               <figure className=" mb-3 grid grid-cols-3 justify-between gap-3 dark:text-white">
