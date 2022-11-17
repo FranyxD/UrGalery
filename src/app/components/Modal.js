@@ -51,12 +51,12 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
     setShow(false);
   };
 
-  const isSave = () => {
+  const isSave = (imag) => {
     if (favorites.some((item) => item.id === imag.id)) {
       return (
         <IsSaveIcon
           key={imag && imag.id}
-          className="h-10 w-10 rounded bg-black/60 fill-white p-1"
+          className="h-10 w-10 rounded bg-black/60 fill-white dark:fill-white p-1"
           onClick={() => dispatch(actionRemoveToFavorites(imag.id))}
         />
       );
@@ -65,7 +65,7 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
       return (
         <NotSaveIcon
           key={imag && imag.id}
-          className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
+          className="h-10 w-10 rounded bg-black/60 stroke-white dark:stroke-white p-1"
           onClick={() => dispatch(actionAddToFavorites(imag))}
         />
       );

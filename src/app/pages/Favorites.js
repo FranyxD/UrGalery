@@ -40,15 +40,11 @@ function Favorites() {
 
     setFilter(
       favorites.slice().filter((item, index) => {
-        console.log("estado actual", filter);
-        console.log("//action: ", data);
         if (item.description === null) {
-          console.log("descripcion es null");
           if(data === '') return item;
           
         } else {
           if (data.search(item.description) !== -1) {
-            console.log("coincide");
           }
           //item.title.search(action.payload.title)
           return item.description.search(data) !== -1;
@@ -139,7 +135,7 @@ function Favorites() {
         <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {filter &&
             filter.map((item, index) => {
-              console.log(item)
+              //console.log(item)
               //console.log(item);
               return (
                 <figure
