@@ -29,6 +29,15 @@ function Home() {
     dispatch(actionRandomPhotos());
   }, [dispatch]);
 
+  useEffect(() => {
+    console.log('content', content)
+    console.log('cpages', page)
+    dispatch(actionSearchPhotos({
+      content: content,
+      page: page,
+    }))
+  }, [content, page]);
+
   //MODAL
   function closeModal() {
     setIsOpen(false);
@@ -56,13 +65,14 @@ function Home() {
   const inputSearch = async (event) => {
     event.preventDefault();
     const { target } = event;
-    const content = target.buscador.value;
+    const contentInput = target.buscador.value;
+    setContent(contentInput)
     const pages = page;
-    console.log('input search', pages)
+    console.log('input search const', pages, 'input search state', page)
     if (content) {
       dispatch(actionSearchPhotos({
-        url: content,
-        page: pages,
+        content: content,
+        page: page,
 
       }));
     } else {
