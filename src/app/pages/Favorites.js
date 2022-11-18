@@ -97,7 +97,7 @@ function Favorites() {
   return (
     <>
       <Header buscador={searchFavorites} />
-      <main className="mb-16 mt-3 md:mb-0 md:mt-16 bg-white dark:bg-black">
+      <main className="mb-16 mt-3 md:mb-0 md:mt-16 bg-no-repeat  bg-light-pattern dark:bg-dark-pattern bg-opacity-5">
         <Modal
           openModal={openModal}
           closeModal={closeModal}
