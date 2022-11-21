@@ -28,15 +28,15 @@ function Favorites() {
   }, [favorites]);
 
   useEffect(() => {
-    setItemsLimit(page * 5);
+    setItemsLimit(page * 10);
     console.log("itemslimit: " , itemsLimit)
   }, [page, totalPages]);
 
   useEffect(() => {
     console.log("filter: " , filter.length)
-    filter.length % 5 !== 0
-    ? setTotalPages(parseInt(filter.length / 5) + 1)
-    : setTotalPages(parseInt(filter.length / 5));
+    filter.length % 10 !== 0
+    ? setTotalPages(parseInt(filter.length / 10) + 1)
+    : setTotalPages(parseInt(filter.length / 10));
   setPage(1);
   console.log("total" , totalPages)
   }, [filter]);

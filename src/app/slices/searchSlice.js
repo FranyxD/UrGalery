@@ -13,7 +13,8 @@ export const searchSlice = createSlice({
       })
       builder
       .addCase(actionSearchPhotos.fulfilled, (state, action) =>{
-        return action.payload;
+        console.log('slice', action.payload)
+        return action.payload.results;
 
       })
       

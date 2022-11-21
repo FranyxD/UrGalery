@@ -1,33 +1,32 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
-export const getUrl = (valor) => {
-  const API_KEY = "UQ23pygzKHfPyUj-oMZ5AsmkpWyDceKf2KUcjichoWI";
-  if (valor == "") {
-    return `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=20&per_page=20`;
-  }
-
-  const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}&per_page=20`;
-
+export const getUrl = (valor, page) => {
+  const API_KEY = "B9ExTvnhPipKSf822qnckDzGvClpfz_h9GnGQ8ouu3o";
+  const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}&page=${page}&per_page=10`;
+  console.log("🚀 ~ file: searchServices.js ~ line 10 ~ getUrl ~ URL", URL)
   return URL;
 };
 
 export const actionSearchPhotos = createAsyncThunk(
   "searchPhotos",
-  async (url) => {
-    const response = await axios.get(getUrl(url));
+  async (datos) => {
+    const {content, page} = datos;
+    const response = await axios.get(getUrl(content, page));
     const data = response.data;
-    console.log(data.results);
-    return data.results;
+    console.log("🚀 ~ file: searchServices.js ~ line 20 ~ response", data)
+    console.log(data.total)
+    sessionStorage.setItem('totalPages', data.total)
+    return data;
   }
 );
 
 export const actionRandomPhotos = createAsyncThunk("randomPhotos", async () => {
-  const API_KEY = "UQ23pygzKHfPyUj-oMZ5AsmkpWyDceKf2KUcjichoWI";
-  const URL = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=20&per_page=20`;
-
+  const API_KEY = "B9ExTvnhPipKSf822qnckDzGvClpfz_h9GnGQ8ouu3o";
+  const URL = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30&per_page=30`;
   const response = await axios.get(URL);
   const data = response.data;
+  console.log('random', response)
   return data;
 });
 

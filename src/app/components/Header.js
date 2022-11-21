@@ -12,7 +12,7 @@ export const refresh = () => {
   window.location.reload();
 };
 
-function Header({ buscador }) {
+function Header({ buscador, setContent, content }) {
   const dispatch = useDispatch();
   const [darkMode, setDarkMode] = useState(false);
   useEffect(() => {

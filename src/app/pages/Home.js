@@ -12,6 +12,7 @@ import Modal from "../components/Modal";
 import { ReactComponent as IsSaveIcon } from "../../images/isSave.svg";
 import { ReactComponent as NotSaveIcon } from "../../images/notSave.svg";
 
+
 function Home() {
   const dispatch = useDispatch();
   const galery = useSelector((state) => state.search);
@@ -19,10 +20,32 @@ function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
   const favorites = useSelector((state) => state.favorites);
+  const [page, setPage] = useState(1)
+  const [content, setContent] = useState('');
+  const totalPages = sessionStorage.getItem('totalPages');
 
   useEffect(() => {
-    dispatch(actionRandomPhotos());
-  }, [dispatch]);
+    console.log('galery', galery)
+    if (content) {
+      dispatch(actionSearchPhotos({
+        content: content,
+        page: page,
+      }));
+    }else {
+      dispatch(actionRandomPhotos())
+    }
+  }, [content, page]);
+
+
+  //buscador
+  const inputSearch =  (event) => {
+    event.preventDefault();
+    const { target } = event;
+    //const querys = target.buscador.value;
+    console.log('content before', content)
+    setContent(target.buscador.value)
+    console.log('content after', content)
+  };
 
   //MODAL
   function closeModal() {
@@ -42,22 +65,12 @@ function Home() {
     const data = target.id;
     galery.filter((item) => {
       if (item.id === data) {
-        console.log("id filter: ", item.id);
         return dispatch(actionAddToFavorites(item));
       }
       return "";
     });
   }
-  const inputSearch = async (event) => {
-    event.preventDefault();
-    const { target } = event;
-    const content = target.buscador.value;
-    if (content) {
-      dispatch(actionSearchPhotos(content));
-    } else {
-      dispatch(actionRandomPhotos());
-    }
-  };
+ 
 
 //mirar si esta guardado
 const isSave = (imag) => {
@@ -70,7 +83,7 @@ const isSave = (imag) => {
       />
     );
   } else {
-    console.log("is not matched");
+    //console.log("is not matched");
     return (
       <NotSaveIcon
         key={imag && imag.id}
@@ -83,7 +96,10 @@ const isSave = (imag) => {
 
   return (
     <>
-      <Header buscador={inputSearch} />
+      <Header buscador={inputSearch} 
+          setContent={setContent}
+          content={content}
+          />
       <main className="mb-16 mt-3 md:mb-0 md:mt-16 bg-white dark:bg-black">
         <Modal
           openModal={openModal}
@@ -116,6 +132,12 @@ const isSave = (imag) => {
             );
           })}
         </section>
+        <ul className="mb-2 flex w-full place-content-center gap-5 dark:text-white text-black">
+          <li><button  disabled={page === 1} onClick={() => setPage((prevState) => prevState - 1)}>Prev</button></li>
+          <li>{page}</li>
+          <li><button onClick={() => setPage((prevState) => prevState + 1)}>Next</button></li>
+          <li><button onClick={() => setPage(totalPages)}>{sessionStorage.getItem("totalPages")}</button></li>
+        </ul>
       </main>
     </>
   );

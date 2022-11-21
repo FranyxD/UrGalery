@@ -61,7 +61,7 @@ function Modal({ openModal, closeModal, imag, isOpen, setImg }) {
         />
       );
     } else {
-      console.log("is not matched");
+      //console.log("is not matched");
       return (
         <NotSaveIcon
           key={imag && imag.id}
