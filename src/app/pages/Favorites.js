@@ -8,13 +8,41 @@ import Modal from "../components/Modal";
 import Header from "../components/Header";
 import { ReactComponent as IsSaveIcon } from "../../images/isSave.svg";
 import { ReactComponent as NotSaveIcon } from "../../images/notSave.svg";
+import { Pagination } from "../components/pagination";
+//import Pagination from './pagination';
 
 function Favorites() {
   const dispatch = useDispatch();
   const favorites = useSelector((state) => state.favorites);
+  const [filter, setFilter] = useState(favorites);
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
-  const [search, setSearch] = useState('')
+  const [search, setSearch] = useState('');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1)
+  const [itemsLimit, setItemsLimit] = useState(5);
+
+  useEffect(() => {
+    setFilter(favorites);
+    
+  }, [favorites]);
+
+  useEffect(() => {
+    setItemsLimit(page * 5);
+    console.log("itemslimit: " , itemsLimit)
+  }, [page, totalPages]);
+
+  useEffect(() => {
+    console.log("filter: " , filter.length)
+    filter.length % 5 !== 0
+    ? setTotalPages(parseInt(filter.length / 5) + 1)
+    : setTotalPages(parseInt(filter.length / 5));
+  setPage(1);
+  console.log("total" , totalPages)
+  }, [filter]);
+ 
+
+  console.log("page" , page)
   //MODAL
   function closeModal() {
     setIsOpen(false);
@@ -26,18 +54,15 @@ function Favorites() {
   };
 
   //hacer useselector para quitar el subscribe
-  const [filter, setFilter] = useState(favorites);
-  useEffect(() => {
-    setFilter(favorites);
-    
-  }, [favorites]);
+  
+  
 
   //FILTROS
   const searchFavorites = (e) => {
     e.preventDefault();
     const { target } = e;
     const data = target.buscador.value;
-
+    console.log("🚀 ~ file: Favorites.js ~ line 65 ~ searchFavorites ~ data", data)
     setFilter(
       favorites.slice().filter((item, index) => {
         if (item.description === null) {
@@ -134,7 +159,8 @@ function Favorites() {
         </div>
         <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {filter &&
-            filter.map((item, index) => {
+            filter.slice(itemsLimit - 5, itemsLimit)
+            .map((item, index) => {
               //console.log(item)
               //console.log(item);
               return (
@@ -159,6 +185,11 @@ function Favorites() {
               );
             })}
         </section>
+        <Pagination
+        totalPages={totalPages}
+        page={page}
+        setPage={setPage}
+        />
       </main>
     </>
   );
