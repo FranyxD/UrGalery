@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-import { actionRandomPhotos, actionSearchPhotos } from "../slices/services/searchServices";
+import {
+  actionRandomPhotos,
+  actionSearchPhotos,
+} from "../slices/services/searchServices";
 import {
   actionAddToFavorites,
   actionRemoveToFavorites,
@@ -11,7 +14,7 @@ import Header from "../components/Header";
 import Modal from "../components/Modal";
 import { ReactComponent as IsSaveIcon } from "../../images/isSave.svg";
 import { ReactComponent as NotSaveIcon } from "../../images/notSave.svg";
-
+import ReactPaginate from 'react-paginate';
 
 function Home() {
   const dispatch = useDispatch();
@@ -20,31 +23,33 @@ function Home() {
   const [isOpen, setIsOpen] = useState(false);
   const [imag, setImg] = useState("");
   const favorites = useSelector((state) => state.favorites);
-  const [page, setPage] = useState(1)
-  const [content, setContent] = useState('');
-  const totalPages = sessionStorage.getItem('totalPages');
+  const [page, setPage] = useState(1);
+  const [content, setContent] = useState("");
+
+  const totalPages = sessionStorage.getItem("totalPages");
 
   useEffect(() => {
-    console.log('galery', galery)
+    console.log(page);
     if (content) {
-      dispatch(actionSearchPhotos({
-        content: content,
-        page: page,
-      }));
-    }else {
-      dispatch(actionRandomPhotos())
+      dispatch(
+        actionSearchPhotos({
+          content: content,
+          page: page,
+        })
+      );
+    } else {
+      dispatch(actionRandomPhotos());
     }
   }, [content, page]);
 
-
   //buscador
-  const inputSearch =  (event) => {
+  const inputSearch = (event) => {
     event.preventDefault();
     const { target } = event;
     //const querys = target.buscador.value;
-    console.log('content before', content)
-    setContent(target.buscador.value)
-    console.log('content after', content)
+    console.log("content before", content);
+    setContent(target.buscador.value);
+    console.log("content after", content);
   };
 
   //MODAL
@@ -70,37 +75,41 @@ function Home() {
       return "";
     });
   }
- 
 
-//mirar si esta guardado
-const isSave = (imag) => {
-  if (favorites.some((item) => item.id === imag.id)) {
-    return (
-      <IsSaveIcon
-        key={imag && imag.id}
-        className="h-10 w-10 rounded bg-black/60 fill-white p-1"
-        onClick={() => dispatch(actionRemoveToFavorites(imag.id))}
-      />
-    );
-  } else {
-    //console.log("is not matched");
-    return (
-      <NotSaveIcon
-        key={imag && imag.id}
-        className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
-        onClick={() => dispatch(actionAddToFavorites(imag))}
-      />
-    );
-  }
-};
+  //mirar si esta guardado
+  const isSave = (imag) => {
+    if (favorites.some((item) => item.id === imag.id)) {
+      return (
+        <IsSaveIcon
+          key={imag && imag.id}
+          className="h-10 w-10 rounded bg-black/60 fill-white p-1"
+          onClick={() => dispatch(actionRemoveToFavorites(imag.id))}
+        />
+      );
+    } else {
+      //console.log("is not matched");
+      return (
+        <NotSaveIcon
+          key={imag && imag.id}
+          className="h-10 w-10 rounded bg-black/60 stroke-white p-1"
+          onClick={() => dispatch(actionAddToFavorites(imag))}
+        />
+      );
+    }
+  };
+
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
 
   return (
     <>
-      <Header buscador={inputSearch} 
-          setContent={setContent}
-          content={content}
-          />
-      <main className="mb-16 mt-3 md:mb-0 md:mt-16 bg-white dark:bg-black">
+      <Header
+        buscador={inputSearch}
+        setContent={setContent}
+        content={content}
+      />
+      <main className="mb-16 mt-3 bg-white dark:bg-black md:mb-0 md:mt-16">
         <Modal
           openModal={openModal}
           closeModal={closeModal}
@@ -108,7 +117,7 @@ const isSave = (imag) => {
           isOpen={isOpen}
         />
 
-        <section className="w-full px-2 py-3 m-0 columns-2 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
+        <section className="m-0 w-full columns-2 px-2 py-3 md:columns-3 xl:columns-4 2xl:columns-5 3xl:columns-6">
           {galery.map((item, index) => {
             //console.log("items from galery: ", item);
             return (
@@ -116,30 +125,32 @@ const isSave = (imag) => {
                 <img
                   id={item.id}
                   name="photo"
-                  className="object-cover rounded-xl "
+                  className="rounded-xl object-cover "
                   src={item.urls.regular}
                   alt={item.title}
                   onClick={() => openModal(item)}
                 />
-                
-                  
+
                 <div className="absolute right-5 bottom-5" role="button">
-                {favorites && isSave(item)}
+                  {favorites && isSave(item)}
                 </div>
-                
-                
               </figure>
             );
           })}
         </section>
-        <ul className="mb-2 flex w-full place-content-center gap-5 dark:text-white text-black">
-          <li><button  disabled={page === 1} onClick={() => setPage((prevState) => prevState - 1)}>Prev</button></li>
-          <li>{page}</li>
-          <li><button onClick={() => setPage((prevState) => prevState + 1)}>Next</button></li>
-          <li><button onClick={() => setPage(totalPages)}>{sessionStorage.getItem("totalPages")}</button></li>
-        </ul>
+        <ReactPaginate
+        className="flex gap-5 w-full place-items-center place-content-center p-2 dark:text-white "
+        breakLabel="..."
+        nextLabel=">"
+        onPageChange={handleChange}
+        pageCount={totalPages}
+        previousLabel="<"
+        renderOnZeroPageCount={null}
+        activeClassName="text-black px-3  py-1 rounded-full dark:text-white dark:bg-midnight bg-green-light"
+      />
       </main>
     </>
   );
 }
+
 export default Home;

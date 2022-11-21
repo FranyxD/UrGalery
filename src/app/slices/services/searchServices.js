@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const getUrl = (valor, page) => {
-  const API_KEY = "B9ExTvnhPipKSf822qnckDzGvClpfz_h9GnGQ8ouu3o";
+  const API_KEY = "ovw4CtbLgG3DTozvXvNuci975ALnURnRbvQMAILM-cE";
   const URL = `https://api.unsplash.com/search/photos/?client_id=${API_KEY}&query=${valor}&page=${page}&per_page=10`;
   console.log("🚀 ~ file: searchServices.js ~ line 10 ~ getUrl ~ URL", URL)
   return URL;
@@ -22,7 +22,7 @@ export const actionSearchPhotos = createAsyncThunk(
 );
 
 export const actionRandomPhotos = createAsyncThunk("randomPhotos", async () => {
-  const API_KEY = "B9ExTvnhPipKSf822qnckDzGvClpfz_h9GnGQ8ouu3o";
+  const API_KEY = "ovw4CtbLgG3DTozvXvNuci975ALnURnRbvQMAILM-cE";
   const URL = `https://api.unsplash.com/photos/random/?client_id=${API_KEY}&count=30&per_page=30`;
   const response = await axios.get(URL);
   const data = response.data;
