@@ -98,8 +98,11 @@ function Home() {
     }
   };
 
-  const handleChange = (event, value) => {
-    setPage(value);
+  const handlePageClick = (event) => {
+    console.log(
+      `User requested page number ${event.selected}, which is offset ${event.selected}`
+    );
+    setPage(event.selected)
   };
 
   return (
@@ -142,7 +145,7 @@ function Home() {
         className="flex gap-5 w-full place-items-center place-content-center p-2 dark:text-white "
         breakLabel="..."
         nextLabel=">"
-        onPageChange={handleChange}
+        onPageChange={handlePageClick}
         pageCount={totalPages}
         previousLabel="<"
         renderOnZeroPageCount={null}
